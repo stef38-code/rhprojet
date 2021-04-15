@@ -1,0 +1,50 @@
+openapi: 3.0.1
+
+info:
+  version: 0.0.1
+  title: project rh
+  description: the project rh
+  contact:
+    email: apiteam@swagger.io
+
+
+tags:
+  - name: "regions"
+
+paths:
+
+  /regions:
+    get:
+      tags:
+        - regions
+      operationId: getAllRegions
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RegionsDto'
+        "404":
+          description: "Regions not found"
+
+
+components:
+
+  schemas:
+
+    RegionsDto:
+      description: Une region model
+      type: object
+      properties:
+        id:
+          description: identifiant
+          type: integer
+          format: int64
+        regionName:
+          description: nom de la region
+          type: string
+
