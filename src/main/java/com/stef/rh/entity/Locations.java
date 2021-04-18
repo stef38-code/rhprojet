@@ -32,6 +32,10 @@ public class Locations implements Serializable {
     @Column(name = "state_province")
     private String stateProvince;
 
-    @ManyToOne
-    private Countries country;
+    @Column(name = "country_id", nullable = false)
+    private String countryId;
+
+    @Column(name = "country_country_id")
+    private String countryCountryId;
+
 }

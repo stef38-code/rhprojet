@@ -5,7 +5,6 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * $table.getTableComment()
@@ -30,9 +29,5 @@ public class Jobs implements Serializable {
 
     @Column(name = "max_salary")
     private BigDecimal maxSalary;
-
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="job_id")
-    private List<Jobs> jobs;
 
 }

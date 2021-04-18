@@ -29,6 +29,10 @@ public class Dependents implements Serializable {
     @Column(name = "relationship", nullable = false)
     private String relationship;
 
-   @ManyToOne
-    private Employees employ;
+    @Column(name = "employee_id", nullable = false)
+    private Long employeeId;
+
+    @Column(name = "employ_employee_id")
+    private Long employEmployeeId;
+
 }

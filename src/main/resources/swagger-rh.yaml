@@ -7,32 +7,64 @@ info:
   contact:
     email: apiteam@swagger.io
 
-
 tags:
   - name: "regions"
-
+    description: "Tout sur les régions"
 paths:
-
   /regions:
     get:
       tags:
         - regions
+      summary: "Recherche toutes les regions"
+      description: ""
       operationId: getAllRegions
       responses:
         "200":
-          description: "successful operation"
+          description: "Opération réussie"
           content:
-
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/RegionsDto'
         "404":
-          description: "Regions not found"
+          $ref: '#/components/responses/NotFound'
 
+  /regions/{id}:
+    get:
+      tags:
+        - regions
+      summary: "Recherche un region par son id"
+      description: ""
+      operationId: getRegionsById
+
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Identifiant de la regions"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+            minimum: 1
+      responses:
+        "200":
+          description: "Opération réussie"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionsDto'
+        "404":
+          $ref: '#/components/responses/NotFound'
 
 components:
+  responses:
+    NotFound:
+      description: "La ressource spécifiée est introuvable"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
 
   schemas:
 
@@ -48,3 +80,14 @@ components:
           description: nom de la region
           type: string
 
+    # Schema for error response body
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message

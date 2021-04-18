@@ -4,8 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 
 /**
  * $table.getTableComment()
@@ -24,9 +22,5 @@ public class Regions implements Serializable {
 
     @Column(name = "region_name")
     private String regionName;
-
-   /* @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="regionId")
-    private List<Countries> countries;*/
 
 }

@@ -18,4 +18,9 @@ public class RegionsService implements IRegionsService{
 
         return regionsMapper.toDtoMap(repository.findAll());
     }
+
+    @Override
+    public RegionsDto getRegionsById(Long id) {
+        return regionsMapper.toDto(repository.findById(id).orElse(null));
+    }
 }

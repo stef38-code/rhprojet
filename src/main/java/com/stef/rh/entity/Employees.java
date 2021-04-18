@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * $table.getTableComment()
@@ -38,8 +37,8 @@ public class Employees implements Serializable {
     @Column(name = "hire_date", nullable = false)
     private LocalDate hireDate;
 
-     @ManyToOne
-    private Jobs job;
+    @Column(name = "job_id", nullable = false)
+    private Long jobId;
 
     @Column(name = "salary", nullable = false)
     private BigDecimal salary;
@@ -50,8 +49,7 @@ public class Employees implements Serializable {
     @Column(name = "department_id")
     private Long departmentId;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="dependent_id")
-    private List<Dependents> dependents;
+    @Column(name = "job_job_id")
+    private Long jobJobId;
 
 }
