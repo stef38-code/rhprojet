@@ -9,12 +9,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Objects;
 
 @RequiredArgsConstructor
 @RestController
 public class RegionsController implements RegionsApi {
     private final IRegionsService regionsService;
+
+    @Override
+    public ResponseEntity< RegionsDto > addRegions(RegionsDto body) {
+        return new ResponseEntity<>(regionsService.save(body),HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity< Void > deleteRegionsById(Long id) {
+        regionsService.delete(id);
+    }
+
     @Override
     public ResponseEntity< List< RegionsDto > > getAllRegions() {
         return new ResponseEntity<>(regionsService.getAllRegions(),HttpStatus.OK);
@@ -22,10 +32,11 @@ public class RegionsController implements RegionsApi {
 
     @Override
     public ResponseEntity< RegionsDto> getRegionsById(Long id) {
-        final RegionsDto regionsById = regionsService.getRegionsById(id);
-        if(Objects.nonNull(regionsById)){
-            return new ResponseEntity<>(regionsById,HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(regionsService.getRegionsById(id),HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity< RegionsDto > updateRegions(RegionsDto body) {
+        return null;
     }
 }

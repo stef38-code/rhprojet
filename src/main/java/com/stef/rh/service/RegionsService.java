@@ -1,5 +1,6 @@
 package com.stef.rh.service;
 
+import com.stef.rh.exception.RegionsNotFoundException;
 import com.stef.rh.mapper.RegionsMapper;
 import com.stef.rh.models.RegionsDto;
 import com.stef.rh.repository.RegionsRepository;
@@ -21,6 +22,6 @@ public class RegionsService implements IRegionsService{
 
     @Override
     public RegionsDto getRegionsById(Long id) {
-        return regionsMapper.toDto(repository.findById(id).orElse(null));
+        return regionsMapper.toDto(repository.findById(id).orElseThrow(()->new RegionsNotFoundException(id)));
     }
 }
