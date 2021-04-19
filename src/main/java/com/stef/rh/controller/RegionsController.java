@@ -23,6 +23,7 @@ public class RegionsController implements RegionsApi {
     @Override
     public ResponseEntity< Void > deleteRegionsById(Long id) {
         regionsService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
@@ -36,7 +37,7 @@ public class RegionsController implements RegionsApi {
     }
 
     @Override
-    public ResponseEntity< RegionsDto > updateRegions(RegionsDto body) {
-        return null;
+    public ResponseEntity< RegionsDto > updateRegions(RegionsDto body, Long id) {
+        return new ResponseEntity<>(regionsService.update(body, id), HttpStatus.OK);
     }
 }

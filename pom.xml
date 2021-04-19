@@ -14,13 +14,14 @@
 	<name>rhprojet</name>
 	<description>monolithic spring project boot on the database ref.: https://www.sqltutorial.org/sql-sample-database/</description>
 	<properties>
-		<java.version>11</java.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<mapstruct.version>1.4.2.Final</mapstruct.version>
-		<lombok.version>1.18.18</lombok.version>
-		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-	</properties>
+        <java.version>11</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <lombok.version>1.18.18</lombok.version>
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <jacoco.version>0.8.6</jacoco.version>
+    </properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -74,17 +75,22 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-			<version>${mapstruct.version}</version>
-		</dependency>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-processor</artifactId>
-			<version>${mapstruct.version}</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
@@ -135,20 +141,45 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/swagger-rh.yaml</inputSpec>
 							<language>spring</language>
-							<output>${project.build.directory}/generated-sources/</output>
-							<generateSupportingFiles>false</generateSupportingFiles>
-							<apiPackage>com.stef.rh.api</apiPackage>
-							<modelPackage>com.stef.rh.models</modelPackage>
-							<generateModelTests>true</generateModelTests>
-							<configOptions>
-								<interfaceOnly>true</interfaceOnly>
+                            <output>${project.build.directory}/generated-sources/</output>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <apiPackage>com.stef.rh.api</apiPackage>
+                            <modelPackage>com.stef.rh.models</modelPackage>
+                            <generateModelTests>true</generateModelTests>
+                            <configOptions>
+                                <interfaceOnly>true</interfaceOnly>
 
-							</configOptions>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- rapport couverture -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>tooltest/**/*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
 	</build>
 
 </project>
