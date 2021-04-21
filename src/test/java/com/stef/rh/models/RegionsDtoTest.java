@@ -2,60 +2,87 @@ package com.stef.rh.models;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class RegionsDtoTest {
+class RegionsDtoTest {
+
     @Test
-    public void testId() {
-        RegionsDto regionsDto = new RegionsDto();
-        RegionsDto actualIdResult = regionsDto.id(123L);
-        assertSame(regionsDto, actualIdResult);
-        assertEquals(123L, actualIdResult.getId().longValue());
+    void testRegionName() {
+        RegionsDto actualRegionNameResult = getSample();
+        assertAll(() -> {
+                    assertThat(actualRegionNameResult.getRegionName()).isEqualTo("bargain spit continue verse bag");
+                    assertThat(actualRegionNameResult.getId()).isEqualTo(123L);
+                }
+        );
     }
 
     @Test
-    public void testSetId() {
-        RegionsDto regionsDto = new RegionsDto();
-        regionsDto.setId(123L);
-        assertEquals(123L, regionsDto.getId().longValue());
+    void testEqualsWithNullObject() {
+        assertAll(() -> {
+                    assertFalse((new RegionsDto()).equals("42"));
+                    assertFalse((new RegionsDto()).equals(null));
+                }
+        );
     }
 
     @Test
-    public void testRegionName() {
-        RegionsDto regionsDto = new RegionsDto();
-        RegionsDto actualRegionNameResult = regionsDto.regionName("us-east-2");
-        assertSame(regionsDto, actualRegionNameResult);
-        assertEquals("us-east-2", actualRegionNameResult.getRegionName());
-    }
-
-    @Test
-    public void testSetRegionName() {
-        RegionsDto regionsDto = new RegionsDto();
-        regionsDto.setRegionName("us-east-2");
-        assertEquals("us-east-2", regionsDto.getRegionName());
-    }
-
-    @Test
-    public void testEquals() {
-        assertFalse((new RegionsDto()).equals("42"));
-        assertFalse((new RegionsDto()).equals(null));
-    }
-
-    @Test
-    public void testHashCode() {
+    void testHashCodeWithNullObject() {
         assertEquals(961, (new RegionsDto()).hashCode());
     }
 
     @Test
-    public void testToString() {
-        assertEquals("class RegionsDto {\n    id: null\n    regionName: null\n}", (new RegionsDto()).toString());
+    void testHashCodeWithSample() {
+        assertThat(getSample().hashCode()).isEqualTo(-1862650924);
     }
 
     @Test
-    public void testToString2() {
+    void testEqualsWithSample() {
+        assertThat(getSample()).isEqualTo(getSample());
+    }
+
+    @Test
+    void testEqualsWithSample2() {
+        RegionsDto regionsDto = getSample2();
+        assertThat(regionsDto).isEqualTo(regionsDto);
+    }
+
+    @Test
+    void testToStringWithNullObject() {
+        toStringTest((new RegionsDto()).toString(), "class RegionsDto {\n    id: null\n    regionName: null\n}");
+    }
+
+    @Test
+    void testToStringWithSample() {
+        toStringTest(getSample().toString(), "class RegionsDto {\n    id: 123\n    regionName: bargain spit continue verse bag\n}");
+    }
+
+    private void toStringTest(String actual, String except) {
+        assertThat(actual).isEqualTo(except);
+    }
+
+    /**
+     * Retourne un exemple de données
+     *
+     * @return RegionsDto
+     */
+    private RegionsDto getSample() {
         RegionsDto regionsDto = new RegionsDto();
-        regionsDto.id(123L);
-        assertEquals("class RegionsDto {\n    id: 123\n    regionName: null\n}", regionsDto.toString());
+        regionsDto.setId(123L);
+        regionsDto.setRegionName("bargain spit continue verse bag");
+        return regionsDto;
+    }
+
+    /**
+     * Retourne un exemple de données
+     *
+     * @return RegionsDto
+     */
+    private RegionsDto getSample2() {
+        RegionsDto regionsDto = new RegionsDto();
+        regionsDto.id(99L);
+        regionsDto.regionName("arrive");
+        return regionsDto;
     }
 }
 

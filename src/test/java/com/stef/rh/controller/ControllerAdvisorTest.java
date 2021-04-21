@@ -12,9 +12,9 @@ import java.util.LinkedHashMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ControllerAdvisorTest {
+class ControllerAdvisorTest {
     @Test
-    public void testHandleCityNotFoundException() {
+    void testHandleCityNotFoundException() {
         ControllerAdvisor controllerAdvisor = new ControllerAdvisor();
         RegionsNotFoundException ex = new RegionsNotFoundException(123L);
         ResponseEntity< Object > actualHandleCityNotFoundExceptionResult = controllerAdvisor.handleCityNotFoundException(ex,

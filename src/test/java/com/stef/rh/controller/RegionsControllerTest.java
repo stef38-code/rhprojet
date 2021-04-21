@@ -1,5 +1,6 @@
 package com.stef.rh.controller;
 
+import com.stef.rh.exception.RegionsNotFoundException;
 import com.stef.rh.models.RegionsDto;
 import com.stef.rh.service.IRegionsService;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ import static org.mockito.Mockito.*;
 
 @ContextConfiguration(classes = {RegionsController.class})
 @ExtendWith(SpringExtension.class)
-public class RegionsControllerTest {
+class RegionsControllerTest {
     @MockBean
     private IRegionsService iRegionsService;
 
@@ -27,8 +28,19 @@ public class RegionsControllerTest {
     private RegionsController regionsController;
 
     @Test
-    public void testAddRegions() {
-        when(this.iRegionsService.save((RegionsDto) any())).thenReturn(new RegionsDto());
+    void testAddRegions() {
+        when(this.iRegionsService.save((RegionsDto) any())).thenThrow(new RegionsNotFoundException(12l));
+        assertThrows(this.regionsController.addRegions(new RegionsDto(), RegionsNotFoundException.class);
+        assertEquals("<200 OK OK,class RegionsDto {\n    id: null\n    regionName: null\n},[]>",
+                actualAddRegionsResult.toString());
+        assertEquals(HttpStatus.OK, actualAddRegionsResult.getStatusCode());
+        assertTrue(actualAddRegionsResult.hasBody());
+        verify(this.iRegionsService).save((RegionsDto) any());
+    }
+
+    @Test
+    void testAddNullRegions() {
+        when(this.iRegionsService.save((RegionsDto) any())).thenReturn(null);
         ResponseEntity< RegionsDto > actualAddRegionsResult = this.regionsController.addRegions(new RegionsDto());
         assertEquals("<200 OK OK,class RegionsDto {\n    id: null\n    regionName: null\n},[]>",
                 actualAddRegionsResult.toString());
@@ -38,7 +50,7 @@ public class RegionsControllerTest {
     }
 
     @Test
-    public void testDeleteRegionsById() {
+    void testDeleteRegionsById() {
         doNothing().when(this.iRegionsService).delete((Long) any());
         ResponseEntity< Void > actualDeleteRegionsByIdResult = this.regionsController.deleteRegionsById(123L);
         assertNull(actualDeleteRegionsByIdResult.getBody());
@@ -48,7 +60,7 @@ public class RegionsControllerTest {
     }
 
     @Test
-    public void testGetAllRegions() {
+    void testGetAllRegions() {
         when(this.iRegionsService.getAllRegions()).thenReturn(new ArrayList< RegionsDto >());
         ResponseEntity< List< RegionsDto > > actualAllRegions = this.regionsController.getAllRegions();
         assertEquals("<200 OK OK,[],[]>", actualAllRegions.toString());
@@ -58,7 +70,7 @@ public class RegionsControllerTest {
     }
 
     @Test
-    public void testGetRegionsById() {
+    void testGetRegionsById() {
         when(this.iRegionsService.getRegionsById((Long) any())).thenReturn(new RegionsDto());
         ResponseEntity< RegionsDto > actualRegionsById = this.regionsController.getRegionsById(123L);
         assertEquals("<200 OK OK,class RegionsDto {\n    id: null\n    regionName: null\n},[]>",
@@ -69,7 +81,7 @@ public class RegionsControllerTest {
     }
 
     @Test
-    public void testUpdateRegions() {
+    void testUpdateRegions() {
         when(this.iRegionsService.update((RegionsDto) any(), (Long) any())).thenReturn(new RegionsDto());
         ResponseEntity< RegionsDto > actualUpdateRegionsResult = this.regionsController.updateRegions(new RegionsDto(), 123L);
         assertEquals("<200 OK OK,class RegionsDto {\n    id: null\n    regionName: null\n},[]>",

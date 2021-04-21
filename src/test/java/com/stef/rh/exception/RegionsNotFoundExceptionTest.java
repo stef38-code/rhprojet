@@ -2,19 +2,20 @@ package com.stef.rh.exception;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class RegionsNotFoundExceptionTest {
+class RegionsNotFoundExceptionTest {
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         RegionsNotFoundException actualRegionsNotFoundException = new RegionsNotFoundException(123L);
-        assertNull(actualRegionsNotFoundException.getCause());
-        assertEquals("com.stef.rh.exception.RegionsNotFoundException: la région avec l'ID 123 est introuvable",
-                actualRegionsNotFoundException.toString());
-        assertEquals(0, actualRegionsNotFoundException.getSuppressed().length);
-        assertEquals("la région avec l'ID 123 est introuvable", actualRegionsNotFoundException.getMessage());
-        assertEquals("la région avec l'ID 123 est introuvable", actualRegionsNotFoundException.getLocalizedMessage());
+        assertAll(() -> {
+            assertThat(actualRegionsNotFoundException.getCause()).isNull();
+            assertThat(actualRegionsNotFoundException.toString()).isEqualToIgnoringCase("com.stef.rh.exception.RegionsNotFoundException: la région avec l'ID 123 est introuvable");
+            assertThat(actualRegionsNotFoundException.getSuppressed()).isEmpty();
+            assertThat(actualRegionsNotFoundException.getMessage()).isEqualToIgnoringCase("la région avec l'ID 123 est introuvable");
+            assertThat(actualRegionsNotFoundException.getLocalizedMessage()).isEqualToIgnoringCase("la région avec l'ID 123 est introuvable");
+        });
     }
 }
 
