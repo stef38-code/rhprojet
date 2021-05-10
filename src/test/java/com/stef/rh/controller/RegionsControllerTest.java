@@ -31,7 +31,10 @@ class RegionsControllerTest {
     @Test
     void testAddRegions() {
         when(this.iRegionsService.save(any(RegionsDto.class))).thenThrow(new RegionsNotFoundException(12l));
-        assertThatThrownBy(() -> this.regionsController.addRegions(new RegionsDto()))
+        RegionsDto regionsDto = new RegionsDto();
+        assertThatThrownBy(() ->
+                this.regionsController.addRegions(regionsDto)
+        )
                 .isInstanceOf(RegionsNotFoundException.class)
                 .hasMessage("la région avec l'ID 12 est introuvable");
 

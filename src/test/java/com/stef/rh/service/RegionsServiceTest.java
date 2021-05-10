@@ -136,8 +136,9 @@ class RegionsServiceTest {
        regions.setRegionName("us-east-2");
        when(this.regionsRepository.save(any(Regions.class))).thenReturn(regions);
        when(this.regionsRepository.findById(anyLong())).thenReturn(Optional.< Regions >empty());
-       when(this.regionsMapper.toDto(any(Regions.class))).thenReturn(new RegionsDto());
-       Assertions.assertThatThrownBy(() -> this.regionsService.update(new RegionsDto(), 123L))
+       final RegionsDto body = new RegionsDto();
+       when(this.regionsMapper.toDto(any(Regions.class))).thenReturn(body);
+       Assertions.assertThatThrownBy(() -> this.regionsService.update(body, 123L))
                .isInstanceOf(RegionsNotFoundException.class).hasMessage("la région avec l'ID 123 est introuvable");
 
    }
