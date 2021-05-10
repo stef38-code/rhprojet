@@ -14,14 +14,16 @@
 	<name>rhprojet</name>
 	<description>monolithic spring project boot on the database ref.: https://www.sqltutorial.org/sql-sample-database/</description>
 	<properties>
-        <java.version>11</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <lombok.version>1.18.18</lombok.version>
-        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-        <jacoco.version>0.8.6</jacoco.version>
-    </properties>
+		<java.version>11</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<mapstruct.version>1.4.2.Final</mapstruct.version>
+		<lombok.version>1.18.18</lombok.version>
+		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+		<jacoco.version>0.8.6</jacoco.version>
+		<!---->
+		<sonar.language>java</sonar.language>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
