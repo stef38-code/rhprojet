@@ -15,7 +15,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 @ContextConfiguration(classes = {RegionsController.class})
@@ -29,66 +30,61 @@ class RegionsControllerTest {
 
     @Test
     void testAddRegions() {
-        when(this.iRegionsService.save((RegionsDto) any())).thenThrow(new RegionsNotFoundException(12l));
-        assertThrows(this.regionsController.addRegions(new RegionsDto(), RegionsNotFoundException.class);
-        assertEquals("<200 OK OK,class RegionsDto {\n    id: null\n    regionName: null\n},[]>",
-                actualAddRegionsResult.toString());
-        assertEquals(HttpStatus.OK, actualAddRegionsResult.getStatusCode());
-        assertTrue(actualAddRegionsResult.hasBody());
-        verify(this.iRegionsService).save((RegionsDto) any());
+        when(this.iRegionsService.save(any(RegionsDto.class))).thenThrow(new RegionsNotFoundException(12l));
+        assertThatThrownBy(() -> this.regionsController.addRegions(new RegionsDto()))
+                .isInstanceOf(RegionsNotFoundException.class)
+                .hasMessage("la région avec l'ID 12 est introuvable");
+
     }
 
     @Test
     void testAddNullRegions() {
-        when(this.iRegionsService.save((RegionsDto) any())).thenReturn(null);
+        when(this.iRegionsService.save(any(RegionsDto.class))).thenReturn(null);
         ResponseEntity< RegionsDto > actualAddRegionsResult = this.regionsController.addRegions(new RegionsDto());
-        assertEquals("<200 OK OK,class RegionsDto {\n    id: null\n    regionName: null\n},[]>",
-                actualAddRegionsResult.toString());
-        assertEquals(HttpStatus.OK, actualAddRegionsResult.getStatusCode());
-        assertTrue(actualAddRegionsResult.hasBody());
-        verify(this.iRegionsService).save((RegionsDto) any());
+        assertThat(actualAddRegionsResult.toString()).hasToString("<200 OK OK,[]>");
+        assertThat(actualAddRegionsResult.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(actualAddRegionsResult.hasBody()).isFalse();
+        verify(this.iRegionsService).save(any(RegionsDto.class));
     }
 
     @Test
     void testDeleteRegionsById() {
-        doNothing().when(this.iRegionsService).delete((Long) any());
+        doNothing().when(this.iRegionsService).delete(anyLong());
         ResponseEntity< Void > actualDeleteRegionsByIdResult = this.regionsController.deleteRegionsById(123L);
-        assertNull(actualDeleteRegionsByIdResult.getBody());
-        assertEquals("<200 OK OK,[]>", actualDeleteRegionsByIdResult.toString());
-        assertEquals(HttpStatus.OK, actualDeleteRegionsByIdResult.getStatusCode());
-        verify(this.iRegionsService).delete((Long) any());
+        assertThat(actualDeleteRegionsByIdResult.getBody()).isNull();
+        assertThat(actualDeleteRegionsByIdResult.toString()).hasToString("<200 OK OK,[]>");
+        assertThat(actualDeleteRegionsByIdResult.getStatusCode()).isEqualTo(HttpStatus.OK);
+        verify(this.iRegionsService).delete(anyLong());
     }
 
     @Test
     void testGetAllRegions() {
         when(this.iRegionsService.getAllRegions()).thenReturn(new ArrayList< RegionsDto >());
         ResponseEntity< List< RegionsDto > > actualAllRegions = this.regionsController.getAllRegions();
-        assertEquals("<200 OK OK,[],[]>", actualAllRegions.toString());
-        assertTrue(actualAllRegions.hasBody());
-        assertEquals(HttpStatus.OK, actualAllRegions.getStatusCode());
+        assertThat(actualAllRegions.toString()).hasToString("<200 OK OK,[],[]>");
+        assertThat(actualAllRegions.hasBody()).isTrue();
+        assertThat(actualAllRegions.getStatusCode()).isEqualTo(HttpStatus.OK);
         verify(this.iRegionsService).getAllRegions();
     }
 
     @Test
     void testGetRegionsById() {
-        when(this.iRegionsService.getRegionsById((Long) any())).thenReturn(new RegionsDto());
+        when(this.iRegionsService.getRegionsById(anyLong())).thenReturn(new RegionsDto());
         ResponseEntity< RegionsDto > actualRegionsById = this.regionsController.getRegionsById(123L);
-        assertEquals("<200 OK OK,class RegionsDto {\n    id: null\n    regionName: null\n},[]>",
-                actualRegionsById.toString());
-        assertEquals(HttpStatus.OK, actualRegionsById.getStatusCode());
-        assertTrue(actualRegionsById.hasBody());
-        verify(this.iRegionsService).getRegionsById((Long) any());
+        assertThat(actualRegionsById.toString()).hasToString("<200 OK OK,class RegionsDto {\n    id: null\n    regionName: null\n},[]>");
+        assertThat(actualRegionsById.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(actualRegionsById.hasBody()).isTrue();
+        verify(this.iRegionsService).getRegionsById(anyLong());
     }
 
     @Test
     void testUpdateRegions() {
-        when(this.iRegionsService.update((RegionsDto) any(), (Long) any())).thenReturn(new RegionsDto());
+        when(this.iRegionsService.update(any(RegionsDto.class), anyLong())).thenReturn(new RegionsDto());
         ResponseEntity< RegionsDto > actualUpdateRegionsResult = this.regionsController.updateRegions(new RegionsDto(), 123L);
-        assertEquals("<200 OK OK,class RegionsDto {\n    id: null\n    regionName: null\n},[]>",
-                actualUpdateRegionsResult.toString());
-        assertEquals(HttpStatus.OK, actualUpdateRegionsResult.getStatusCode());
-        assertTrue(actualUpdateRegionsResult.hasBody());
-        verify(this.iRegionsService).update((RegionsDto) any(), (Long) any());
+        assertThat(actualUpdateRegionsResult.toString()).hasToString("<200 OK OK,class RegionsDto {\n    id: null\n    regionName: null\n},[]>");
+        assertThat(actualUpdateRegionsResult.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(actualUpdateRegionsResult.hasBody()).isTrue();
+        verify(this.iRegionsService).update(any(RegionsDto.class), anyLong());
     }
 }
 

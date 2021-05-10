@@ -2,60 +2,55 @@ package com.stef.rh.models;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
- class ErrorTest {
+class ErrorTest {
     @Test
     void testCode() {
-       Error error = new Error();
-       Error actualCodeResult = error.code("Code");
-       assertSame(error, actualCodeResult);
-       assertEquals("Code", actualCodeResult.getCode());
+        Error error = new Error();
+        Error actualCodeResult = error.code("Code");
+        assertThat(actualCodeResult).isSameAs(error);
+        assertThat(actualCodeResult.getCode()).isEqualTo("Code");
     }
 
     @Test
     void testSetCode() {
        Error error = new Error();
-       error.setCode("Code");
-       assertEquals("Code", error.getCode());
+        error.setCode("Code");
+        assertThat(error.getCode()).isEqualTo("Code");
     }
 
     @Test
     void testMessage() {
-       Error error = new Error();
-       Error actualMessageResult = error.message("Not all who wander are lost");
-       assertSame(error, actualMessageResult);
-       assertEquals("Not all who wander are lost", actualMessageResult.getMessage());
+        Error error = new Error();
+        Error actualMessageResult = error.message("Not all who wander are lost");
+        assertThat(actualMessageResult).isSameAs(error);
+        assertThat(actualMessageResult.getMessage()).isEqualTo("Not all who wander are lost");
     }
 
     @Test
     void testSetMessage() {
        Error error = new Error();
-       error.setMessage("Not all who wander are lost");
-       assertEquals("Not all who wander are lost", error.getMessage());
+        error.setMessage("Not all who wander are lost");
+        assertThat(error.getMessage()).hasToString("Not all who wander are lost");
     }
 
-    @Test
-    void testEquals() {
-       assertFalse((new Error()).equals("42"));
-       assertFalse((new Error()).equals(null));
-    }
 
     @Test
     void testHashCode() {
-       assertEquals(961, (new Error()).hashCode());
+        assertThat((new Error()).hashCode()).isEqualTo(961);
     }
 
     @Test
     void testToString() {
-       assertEquals("class Error {\n    code: null\n    message: null\n}", (new Error()).toString());
+        assertThat((new Error()).toString()).hasToString("class Error {\n    code: null\n    message: null\n}");
     }
 
     @Test
     void testToString2() {
        Error error = new Error();
-       error.setMessage("Not all who wander are lost");
-       assertEquals("class Error {\n    code: null\n    message: Not all who wander are lost\n}", error.toString());
+        error.setMessage("Not all who wander are lost");
+        assertThat(error.toString()).hasToString("class Error {\n    code: null\n    message: Not all who wander are lost\n}");
     }
 }
 

@@ -3,7 +3,7 @@ package com.stef.rh.models;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class RegionsDtoTest {
 
@@ -11,8 +11,8 @@ class RegionsDtoTest {
     void testRegionName() {
         RegionsDto actualRegionNameResult = getSample();
         assertAll(() -> {
-                    assertThat(actualRegionNameResult.getRegionName()).isEqualTo("bargain spit continue verse bag");
-                    assertThat(actualRegionNameResult.getId()).isEqualTo(123L);
+            assertThat(actualRegionNameResult.getRegionName()).hasToString("bargain spit continue verse bag");
+            assertThat(actualRegionNameResult.getId()).isEqualTo(123L);
                 }
         );
     }
@@ -20,15 +20,14 @@ class RegionsDtoTest {
     @Test
     void testEqualsWithNullObject() {
         assertAll(() -> {
-                    assertFalse((new RegionsDto()).equals("42"));
-                    assertFalse((new RegionsDto()).equals(null));
+            assertThat((new RegionsDto())).isNotEqualTo(null);
                 }
         );
     }
 
     @Test
     void testHashCodeWithNullObject() {
-        assertEquals(961, (new RegionsDto()).hashCode());
+        assertThat((new RegionsDto()).hashCode()).isEqualTo(961);
     }
 
     @Test

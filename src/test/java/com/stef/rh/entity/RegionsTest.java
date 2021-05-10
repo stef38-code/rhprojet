@@ -2,28 +2,25 @@ package com.stef.rh.entity;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
- class RegionsTest {
+class RegionsTest {
     @Test
     void testCanEqual() {
-       assertFalse((new Regions()).canEqual("Other"));
+        assertThat((new Regions()).canEqual("Other")).isFalse();
     }
 
     @Test
     void testCanEqual2() {
-       Regions regions = new Regions();
+        Regions regions = new Regions();
 
-       Regions regions1 = new Regions();
+        Regions regions1 = new Regions();
        regions1.setRegionId(123L);
-       regions1.setRegionName("us-east-2");
-       assertTrue(regions.canEqual(regions1));
+        regions1.setRegionName("us-east-2");
+        assertThat(regions.canEqual(regions1)).isTrue();
     }
 
-    @Test
-    void testEquals() {
-       assertFalse((new Regions()).equals("42"));
-    }
+
 
     @Test
     void testEquals2() {
@@ -31,14 +28,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
        Regions regions1 = new Regions();
        regions1.setRegionId(123L);
-       regions1.setRegionName("us-east-2");
-       assertFalse(regions.equals(regions1));
+        regions1.setRegionName("us-east-2");
+        assertThat(regions).isNotEqualTo(regions1);
     }
 
     @Test
     void testEquals3() {
        Regions regions = new Regions();
-       assertTrue(regions.equals(new Regions()));
+        assertThat(regions).isEqualTo(new Regions());
     }
 
     @Test
@@ -47,8 +44,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
        Regions regions1 = new Regions();
        regions1.setRegionId(null);
-       regions1.setRegionName("us-east-2");
-       assertFalse(regions.equals(regions1));
+        regions1.setRegionName("us-east-2");
+        assertThat(regions).isNotEqualTo(regions1);
     }
 
     @Test
@@ -58,22 +55,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
        Regions regions1 = new Regions();
        regions1.setRegionId(123L);
-       regions1.setRegionName("us-east-2");
-       assertFalse(regions.equals(regions1));
+        regions1.setRegionName("us-east-2");
+        assertThat(regions).isNotEqualTo(regions1);
     }
 
     @Test
-    public void testEquals6() {
+    void testEquals6() {
         Regions regions = new Regions();
         regions.setRegionId(123L);
-        assertFalse(regions.equals(new Regions()));
+        assertThat(regions).isNotEqualTo(new Regions());
     }
 
     @Test
     void testEquals7() {
        Regions regions = new Regions();
-       regions.setRegionName("us-east-2");
-       assertFalse(regions.equals(new Regions()));
+        regions.setRegionName("us-east-2");
+        assertThat(regions).isNotEqualTo(new Regions());
     }
 
     @Test
@@ -83,46 +80,46 @@ import static org.junit.jupiter.api.Assertions.*;
 
        Regions regions1 = new Regions();
        regions1.setRegionId(null);
-       regions1.setRegionName("us-east-2");
-       assertTrue(regions.equals(regions1));
+        regions1.setRegionName("us-east-2");
+        assertThat(regions).isEqualTo(regions1);
     }
 
     @Test
     void testHashCode() {
-       assertEquals(6061, (new Regions()).hashCode());
+        assertThat((new Regions()).hashCode()).isEqualTo(6061);
     }
 
     @Test
     void testHashCode2() {
        Regions regions = new Regions();
-       regions.setRegionId(123L);
-       assertEquals(10781, regions.hashCode());
+        regions.setRegionId(123L);
+        assertThat(regions.hashCode()).isEqualTo(10781);
     }
 
     @Test
     void testHashCode3() {
        Regions regions = new Regions();
-       regions.setRegionName("us-east-2");
-       assertEquals(1808581619, regions.hashCode());
+        regions.setRegionName("us-east-2");
+        assertThat(regions.hashCode()).isEqualTo(1808581619);
     }
 
     @Test
     void testSetRegionId() {
        Regions regions = new Regions();
-       regions.setRegionId(123L);
-       assertEquals(123L, regions.getRegionId().longValue());
+        regions.setRegionId(123L);
+        assertThat(regions.getRegionId().longValue()).isEqualTo(123L);
     }
 
     @Test
     void testSetRegionName() {
        Regions regions = new Regions();
-       regions.setRegionName("us-east-2");
-       assertEquals("us-east-2", regions.getRegionName());
+        regions.setRegionName("us-east-2");
+        assertThat(regions.getRegionName()).isEqualTo("us-east-2");
     }
 
     @Test
     void testToString() {
-       assertEquals("Regions(regionId=null, regionName=null)", (new Regions()).toString());
+        assertThat((new Regions()).toString()).hasToString("Regions(regionId=null, regionName=null)");
     }
 }
 

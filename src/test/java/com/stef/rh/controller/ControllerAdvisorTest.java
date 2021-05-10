@@ -9,8 +9,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 import java.util.LinkedHashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ControllerAdvisorTest {
     @Test
@@ -19,9 +18,9 @@ class ControllerAdvisorTest {
         RegionsNotFoundException ex = new RegionsNotFoundException(123L);
         ResponseEntity< Object > actualHandleCityNotFoundExceptionResult = controllerAdvisor.handleCityNotFoundException(ex,
                 new ServletWebRequest(new MockHttpServletRequest()));
-        assertEquals(2, ((LinkedHashMap) actualHandleCityNotFoundExceptionResult.getBody()).size());
-        assertTrue(actualHandleCityNotFoundExceptionResult.hasBody());
-        assertEquals(HttpStatus.NOT_FOUND, actualHandleCityNotFoundExceptionResult.getStatusCode());
+        assertThat(((LinkedHashMap) actualHandleCityNotFoundExceptionResult.getBody()).size()).isEqualTo(2);
+        assertThat(actualHandleCityNotFoundExceptionResult.hasBody()).isTrue();
+        assertThat(actualHandleCityNotFoundExceptionResult.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 }
 
