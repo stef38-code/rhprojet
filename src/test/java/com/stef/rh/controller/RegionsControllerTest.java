@@ -74,7 +74,7 @@ class RegionsControllerTest {
     void testGetRegionsById() {
         when(this.iRegionsService.getRegionsById(anyLong())).thenReturn(new RegionsDto());
         ResponseEntity< RegionsDto > actualRegionsById = this.regionsController.getRegionsById(123L);
-        assertThat(actualRegionsById.toString()).hasToString("<200 OK OK,class RegionsDto {\n    id: null\n    regionName: null\n},[]>");
+        assertThat(actualRegionsById.toString()).hasToString("<200 OK OK,class RegionsDto {\n    regionId: null\n    regionName: null\n},[]>");
         assertThat(actualRegionsById.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(actualRegionsById.hasBody()).isTrue();
         verify(this.iRegionsService).getRegionsById(anyLong());
@@ -84,7 +84,7 @@ class RegionsControllerTest {
     void testUpdateRegions() {
         when(this.iRegionsService.update(any(RegionsDto.class), anyLong())).thenReturn(new RegionsDto());
         ResponseEntity< RegionsDto > actualUpdateRegionsResult = this.regionsController.updateRegions(new RegionsDto(), 123L);
-        assertThat(actualUpdateRegionsResult.toString()).hasToString("<200 OK OK,class RegionsDto {\n    id: null\n    regionName: null\n},[]>");
+        assertThat(actualUpdateRegionsResult.toString()).hasToString("<200 OK OK,class RegionsDto {\n    regionId: null\n    regionName: null\n},[]>");
         assertThat(actualUpdateRegionsResult.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(actualUpdateRegionsResult.hasBody()).isTrue();
         verify(this.iRegionsService).update(any(RegionsDto.class), anyLong());

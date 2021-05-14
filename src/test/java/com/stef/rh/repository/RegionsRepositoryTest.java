@@ -1,6 +1,7 @@
 package com.stef.rh.repository;
 
 import com.stef.rh.entity.Regions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ class RegionsRepositoryTest {
 
     @Test
     @Sql("/sql/createRegions.sql")
+    @Disabled("juste pour avoir un exemple avec un script en entree du test")
     void testFindById() {
         Optional< Regions > value = repository.findById(1L);
         assertThat(value).isPresent()

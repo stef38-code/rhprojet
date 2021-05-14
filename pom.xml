@@ -21,6 +21,10 @@
 		<lombok.version>1.18.18</lombok.version>
 		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
 		<jacoco.version>0.8.6</jacoco.version>
+		<io.cucumber.version>6.10.3</io.cucumber.version>
+		<io.swagger.version>1.6.2</io.swagger.version>
+		<io.swagger.codegen.v3.version>3.0.18</io.swagger.codegen.v3.version>
+		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
 		<!---->
 		<sonar.language>java</sonar.language>
 	</properties>
@@ -64,12 +68,12 @@
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-annotations</artifactId>
-			<version>1.6.2</version>
+			<version>${io.swagger.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-models</artifactId>
-			<version>1.6.2</version>
+			<version>${io.swagger.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -88,14 +92,32 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-spring</artifactId>
+			<version>${io.cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>${io.cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit-platform-engine</artifactId>
+			<version>${io.cucumber.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
@@ -140,7 +162,7 @@
 			<plugin>
 				<groupId>io.swagger.codegen.v3</groupId>
 				<artifactId>swagger-codegen-maven-plugin</artifactId>
-				<version>3.0.18</version>
+				<version>${io.swagger.codegen.v3.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -149,8 +171,8 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/swagger-rh.yaml</inputSpec>
 							<language>spring</language>
-                            <output>${project.build.directory}/generated-sources/</output>
-                            <generateSupportingFiles>false</generateSupportingFiles>
+							<output>${project.build.directory}/generated-sources/</output>
+							<generateSupportingFiles>false</generateSupportingFiles>
                             <apiPackage>com.stef.rh.api</apiPackage>
                             <modelPackage>com.stef.rh.models</modelPackage>
                             <generateModelTests>true</generateModelTests>
@@ -177,17 +199,22 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+			</plugin>
+		</plugins>
 	</build>
 
 </project>

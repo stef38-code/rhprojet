@@ -14,8 +14,14 @@ class ErrorTest {
     }
 
     @Test
+    void testEqual() {
+        Error error = new Error();
+        assertThat(error).isEqualTo(new Error());
+    }
+
+    @Test
     void testSetCode() {
-       Error error = new Error();
+        Error error = new Error();
         error.setCode("Code");
         assertThat(error.getCode()).isEqualTo("Code");
     }

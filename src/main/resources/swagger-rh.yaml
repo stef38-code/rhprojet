@@ -144,7 +144,7 @@ components:
       description: Une region model
       type: object
       properties:
-        id:
+        regionId:
           description: identifiant
           type: integer
           format: int64

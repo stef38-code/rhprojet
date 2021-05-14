@@ -12,16 +12,14 @@ class RegionsDtoTest {
         RegionsDto actualRegionNameResult = getSample();
         assertAll(() -> {
             assertThat(actualRegionNameResult.getRegionName()).hasToString("bargain spit continue verse bag");
-            assertThat(actualRegionNameResult.getId()).isEqualTo(123L);
+            assertThat(actualRegionNameResult.getRegionId()).isEqualTo(123L);
                 }
         );
     }
 
     @Test
     void testEqualsWithNullObject() {
-        assertAll(() -> {
-            assertThat((new RegionsDto())).isNotEqualTo(null);
-                }
+        assertAll(() -> assertThat((new RegionsDto())).isNotEqualTo(null)
         );
     }
 
@@ -48,12 +46,12 @@ class RegionsDtoTest {
 
     @Test
     void testToStringWithNullObject() {
-        toStringTest((new RegionsDto()).toString(), "class RegionsDto {\n    id: null\n    regionName: null\n}");
+        toStringTest((new RegionsDto()).toString(), "class RegionsDto {\n    regionId: null\n    regionName: null\n}");
     }
 
     @Test
     void testToStringWithSample() {
-        toStringTest(getSample().toString(), "class RegionsDto {\n    id: 123\n    regionName: bargain spit continue verse bag\n}");
+        toStringTest(getSample().toString(), "class RegionsDto {\n    regionId: 123\n    regionName: bargain spit continue verse bag\n}");
     }
 
     private void toStringTest(String actual, String except) {
@@ -67,7 +65,7 @@ class RegionsDtoTest {
      */
     private RegionsDto getSample() {
         RegionsDto regionsDto = new RegionsDto();
-        regionsDto.setId(123L);
+        regionsDto.setRegionId(123L);
         regionsDto.setRegionName("bargain spit continue verse bag");
         return regionsDto;
     }
@@ -79,7 +77,7 @@ class RegionsDtoTest {
      */
     private RegionsDto getSample2() {
         RegionsDto regionsDto = new RegionsDto();
-        regionsDto.id(99L);
+        regionsDto.regionId(99L);
         regionsDto.regionName("arrive");
         return regionsDto;
     }
