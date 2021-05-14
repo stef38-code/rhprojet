@@ -16,7 +16,7 @@ class ControllerAdvisorTest {
     void testHandleCityNotFoundException() {
         ControllerAdvisor controllerAdvisor = new ControllerAdvisor();
         RegionsNotFoundException ex = new RegionsNotFoundException(123L);
-        ResponseEntity< Object > actualHandleCityNotFoundExceptionResult = controllerAdvisor.handleCityNotFoundException(ex,
+        ResponseEntity< Object > actualHandleCityNotFoundExceptionResult = controllerAdvisor.handleRegionsNotFoundException(ex,
                 new ServletWebRequest(new MockHttpServletRequest()));
         assertThat(((LinkedHashMap) actualHandleCityNotFoundExceptionResult.getBody()).size()).isEqualTo(2);
         assertThat(actualHandleCityNotFoundExceptionResult.hasBody()).isTrue();

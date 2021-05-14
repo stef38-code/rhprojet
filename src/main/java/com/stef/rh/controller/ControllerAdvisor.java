@@ -17,7 +17,7 @@ import java.util.Map;
 @Slf4j
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     @ExceptionHandler(RegionsNotFoundException.class)
-    public ResponseEntity<Object> handleCityNotFoundException(
+    public ResponseEntity< Object > handleRegionsNotFoundException(
             RegionsNotFoundException ex, WebRequest request) {
 
         Map< String, Object > body = new LinkedHashMap<>();
