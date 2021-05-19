@@ -1,6 +1,7 @@
 package com.stef.rh.service;
 
 import com.stef.rh.entity.Regions;
+import com.stef.rh.exception.ErrorCode;
 import com.stef.rh.exception.RegionsNotFoundException;
 import com.stef.rh.mapper.RegionsMapper;
 import com.stef.rh.models.RegionsDto;
@@ -15,7 +16,7 @@ import java.util.List;
 public class RegionsService implements IRegionsService {
     private final RegionsRepository repository;
     private final RegionsMapper regionsMapper;
-
+    private Regions regions;
     @Override
     public List< RegionsDto > getAllRegions() {
         return regionsMapper.toDtoMap(repository.findAll());
@@ -29,13 +30,13 @@ public class RegionsService implements IRegionsService {
 
     @Override
     public RegionsDto save(RegionsDto body) {
-        Regions regions = regionsMapper.toNewEntity(body);
+        regions = regionsMapper.toNewEntity(body);
         return regionsMapper.toDto(repository.save(regions));
     }
 
     @Override
     public void delete(Long id) {
-        Regions regions = getRegion(id);
+        regions = getRegion(id);
         repository.delete(regions);
     }
 
@@ -53,6 +54,6 @@ public class RegionsService implements IRegionsService {
      * @return Regions
      */
     private Regions getRegion(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RegionsNotFoundException(id));
+        return repository.findById(id).orElseThrow(() -> new RegionsNotFoundException(ErrorCode.APPLICATIF, id));
     }
 }

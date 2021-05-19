@@ -1,5 +1,6 @@
 package com.stef.rh.controller;
 
+import com.stef.rh.exception.ErrorCode;
 import com.stef.rh.exception.RegionsNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -11,11 +12,12 @@ import java.util.LinkedHashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
 class ControllerAdvisorTest {
     @Test
     void testHandleCityNotFoundException() {
         ControllerAdvisor controllerAdvisor = new ControllerAdvisor();
-        RegionsNotFoundException ex = new RegionsNotFoundException(123L);
+        RegionsNotFoundException ex = new RegionsNotFoundException(ErrorCode.APPLICATIF, 123L);
         ResponseEntity< Object > actualHandleCityNotFoundExceptionResult = controllerAdvisor.handleRegionsNotFoundException(ex,
                 new ServletWebRequest(new MockHttpServletRequest()));
         assertThat(((LinkedHashMap) actualHandleCityNotFoundExceptionResult.getBody()).size()).isEqualTo(2);

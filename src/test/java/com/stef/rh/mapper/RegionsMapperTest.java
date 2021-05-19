@@ -11,7 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {RegionsMapperImpl.class})
 @ExtendWith(SpringExtension.class)
-public class RegionsMapperTest {
+class RegionsMapperTest {
     @Autowired
     @Spy
     RegionsMapper mapper;

@@ -1,5 +1,6 @@
 package com.stef.rh.controller;
 
+import com.stef.rh.exception.ErrorCode;
 import com.stef.rh.exception.RegionsNotFoundException;
 import com.stef.rh.models.RegionsDto;
 import com.stef.rh.service.IRegionsService;
@@ -30,7 +31,7 @@ class RegionsControllerTest {
 
     @Test
     void testAddRegions() {
-        when(this.iRegionsService.save(any(RegionsDto.class))).thenThrow(new RegionsNotFoundException(12l));
+        when(this.iRegionsService.save(any(RegionsDto.class))).thenThrow(new RegionsNotFoundException(ErrorCode.APPLICATIF, 12l));
         RegionsDto regionsDto = new RegionsDto();
         assertThatThrownBy(() ->
                 this.regionsController.addRegions(regionsDto)

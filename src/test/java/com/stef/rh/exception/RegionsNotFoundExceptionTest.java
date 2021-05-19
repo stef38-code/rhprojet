@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class RegionsNotFoundExceptionTest {
     @Test
     void testConstructor() {
-        RegionsNotFoundException actualRegionsNotFoundException = new RegionsNotFoundException(123L);
+        RegionsNotFoundException actualRegionsNotFoundException = new RegionsNotFoundException(ErrorCode.APPLICATIF, 123L);
         assertAll(() -> {
             assertThat(actualRegionsNotFoundException.getCause()).isNull();
             assertThat(actualRegionsNotFoundException.toString()).isEqualToIgnoringCase("com.stef.rh.exception.RegionsNotFoundException: la région avec l'ID 123 est introuvable");

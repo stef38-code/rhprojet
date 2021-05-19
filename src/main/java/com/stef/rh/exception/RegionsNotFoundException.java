@@ -1,7 +1,8 @@
 package com.stef.rh.exception;
 
-public class RegionsNotFoundException extends RuntimeException{
-    public RegionsNotFoundException(Long id) {
-        super(String.format("la région avec l'ID %d est introuvable", id));
+public class RegionsNotFoundException extends PersonnalNotFoundException {
+    public RegionsNotFoundException(ErrorCode code, Long id) {
+        super(code, id);
+        detailMessage = "la région avec l'ID %d est introuvable";
     }
 }
