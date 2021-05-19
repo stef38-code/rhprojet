@@ -20,6 +20,13 @@
 		<mapstruct.version>1.4.2.Final</mapstruct.version>
 		<lombok.version>1.18.18</lombok.version>
 		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+		<jacoco.version>0.8.6</jacoco.version>
+		<io.cucumber.version>6.10.3</io.cucumber.version>
+		<io.swagger.version>1.6.2</io.swagger.version>
+		<io.swagger.codegen.v3.version>3.0.18</io.swagger.codegen.v3.version>
+		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+		<!---->
+		<sonar.language>java</sonar.language>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -30,7 +37,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<!-- devTools -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -55,12 +68,12 @@
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-annotations</artifactId>
-			<version>1.6.2</version>
+			<version>${io.swagger.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-models</artifactId>
-			<version>1.6.2</version>
+			<version>${io.swagger.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -68,16 +81,45 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-			<version>${mapstruct.version}</version>
-		</dependency>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
 
-		<dependency>
+        <dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct-processor</artifactId>
 			<version>${mapstruct.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-spring</artifactId>
+			<version>${io.cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>${io.cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit-platform-engine</artifactId>
+			<version>${io.cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -120,7 +162,7 @@
 			<plugin>
 				<groupId>io.swagger.codegen.v3</groupId>
 				<artifactId>swagger-codegen-maven-plugin</artifactId>
-				<version>3.0.18</version>
+				<version>${io.swagger.codegen.v3.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -131,14 +173,46 @@
 							<language>spring</language>
 							<output>${project.build.directory}/generated-sources/</output>
 							<generateSupportingFiles>false</generateSupportingFiles>
-							<apiPackage>com.stef.rh.api</apiPackage>
-							<modelPackage>com.stef.rh.models</modelPackage>
-							<configOptions>
-								<interfaceOnly>true</interfaceOnly>
-							</configOptions>
-						</configuration>
+                            <apiPackage>com.stef.rh.api</apiPackage>
+                            <modelPackage>com.stef.rh.models</modelPackage>
+                            <generateModelTests>true</generateModelTests>
+                            <configOptions>
+                                <interfaceOnly>true</interfaceOnly>
+
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- rapport couverture -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>tooltest/**/*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
 			</plugin>
 		</plugins>
 	</build>

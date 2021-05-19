@@ -6,8 +6,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class RhprojetApplicationTests {
 
-	@Test
+	@Test()
+	@SuppressWarnings("squid:S2699")
 	void contextLoads() {
+		RhprojetApplication.main(new String[]{});
 	}
 
 }
