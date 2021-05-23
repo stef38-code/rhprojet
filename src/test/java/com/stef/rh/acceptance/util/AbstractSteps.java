@@ -2,9 +2,7 @@ package com.stef.rh.acceptance.util;
 
 //@see https://github.com/albanoj2/order-rest-backend/blob/master/src/test/java/com/dzone/albanoj2/example/rest/test/acceptance/util/AbstractSteps.java
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -24,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 public abstract class AbstractSteps {
 
-    private static ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
     private MockMvc mvc;
@@ -48,11 +46,11 @@ public abstract class AbstractSteps {
         return deserialize(response.getContentAsString(), type);
     }
 
-    protected static < T > T deserialize(String json, Class< T > type) throws JsonParseException, JsonMappingException, IOException {
+    protected static < T > T deserialize(String json, Class< T > type) throws IOException {
         return mapper.readValue(json, type);
     }
 
-    protected static < T > T deserialize(String json, TypeReference< T > type) throws JsonParseException, JsonMappingException, IOException {
+    protected static < T > T deserialize(String json, TypeReference< T > type) throws IOException {
         return mapper.readValue(json, type);
     }
 
