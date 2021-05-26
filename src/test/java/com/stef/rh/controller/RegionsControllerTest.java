@@ -1,8 +1,8 @@
 package com.stef.rh.controller;
 
+import com.stef.rh.dto.RegionsDto;
 import com.stef.rh.exception.ErrorCode;
 import com.stef.rh.exception.RegionsNotFoundException;
-import com.stef.rh.models.RegionsDto;
 import com.stef.rh.service.IRegionsService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

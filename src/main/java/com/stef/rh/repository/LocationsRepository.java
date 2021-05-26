@@ -1,6 +1,6 @@
 package com.stef.rh.repository;
 
-import com.stef.rh.entity.Locations;
+import com.stef.rh.model.Locations;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

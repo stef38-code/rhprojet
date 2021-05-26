@@ -1,6 +1,6 @@
 package com.stef.rh.service;
 
-import com.stef.rh.models.RegionsDto;
+import com.stef.rh.dto.RegionsDto;
 
 import java.util.List;
 

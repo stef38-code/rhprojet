@@ -20,11 +20,11 @@ import java.util.Map;
 @Slf4j
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     /**
-     * Handle regions not found exception response entity.
+     * Handle regions not found exception response model.
      *
      * @param ex      the ex
      * @param request the request
-     * @return the response entity
+     * @return the response model
      */
     @ExceptionHandler(RegionsNotFoundException.class)
     public ResponseEntity< Object > handleRegionsNotFoundException(
@@ -35,11 +35,11 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
 
     /**
-     * Handle countries not found exception response entity.
+     * Handle countries not found exception response model.
      *
      * @param countriesNotFoundException the countries not found exception
      * @param request                    the request
-     * @return the response entity
+     * @return the response model
      */
     @ExceptionHandler(CountriesNotFoundException.class)
     public ResponseEntity< Object > handleCountriesNotFoundException(
@@ -49,11 +49,11 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * Handle departments not found exception response entity.
+     * Handle departments not found exception response model.
      *
      * @param departmentsNotFoundException the departments not found exception
      * @param request                      the request
-     * @return the response entity
+     * @return the response model
      */
     @ExceptionHandler(DepartmentsNotFoundException.class)
     public ResponseEntity< Object > handleDepartmentsNotFoundException(
@@ -63,11 +63,11 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * Handle dependants not found exception response entity.
+     * Handle dependants not found exception response model.
      *
      * @param dependantsNotFoundException the dependants not found exception
      * @param request                     the request
-     * @return the response entity
+     * @return the response model
      */
     @ExceptionHandler(DependantsNotFoundException.class)
     public ResponseEntity< Object > handleDependantsNotFoundException(
@@ -77,11 +77,11 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * Handle employees not found exception response entity.
+     * Handle employees not found exception response model.
      *
      * @param employeesNotFoundException the employees not found exception
      * @param request                    the request
-     * @return the response entity
+     * @return the response model
      */
     @ExceptionHandler(EmployeesNotFoundException.class)
     public ResponseEntity< Object > handleEmployeesNotFoundException(
@@ -91,11 +91,11 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * Handle jobs not found exception response entity.
+     * Handle jobs not found exception response model.
      *
      * @param jobsNotFoundException the jobs not found exception
      * @param request               the request
-     * @return the response entity
+     * @return the response model
      */
     @ExceptionHandler(JobsNotFoundException.class)
     public ResponseEntity< Object > handleJobsNotFoundException(
@@ -105,11 +105,11 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * Handle locations not found exception response entity.
+     * Handle locations not found exception response model.
      *
      * @param locationsNotFoundException the locations not found exception
      * @param request                    the request
-     * @return the response entity
+     * @return the response model
      */
     @ExceptionHandler(LocationsNotFoundException.class)
     public ResponseEntity< Object > handleLocationsNotFoundException(

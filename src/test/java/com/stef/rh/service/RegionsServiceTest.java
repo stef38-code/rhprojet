@@ -1,9 +1,9 @@
 package com.stef.rh.service;
 
-import com.stef.rh.entity.Regions;
+import com.stef.rh.dto.RegionsDto;
 import com.stef.rh.exception.RegionsNotFoundException;
 import com.stef.rh.mapper.RegionsMapper;
-import com.stef.rh.models.RegionsDto;
+import com.stef.rh.model.Regions;
 import com.stef.rh.repository.RegionsRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

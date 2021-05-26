@@ -1,6 +1,6 @@
 package com.stef.rh.repository;
 
-import com.stef.rh.entity.Regions;
+import com.stef.rh.model.Regions;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

@@ -1,5 +1,6 @@
 package com.stef.rh.models;
 
+import com.stef.rh.dto.RegionsDto;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
