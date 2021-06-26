@@ -1,7 +1,11 @@
+security:
+  enabled: false
 #----------------------------
 # Spring Boot configuration
 #----------------------------
 spring:
+  security:
+    ignored: /**
   main:
     banner-mode: "off"
   # Database

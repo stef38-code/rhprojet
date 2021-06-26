@@ -2,7 +2,7 @@ package com.stef.rh.acceptance.steps;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.stef.rh.acceptance.util.AbstractSteps;
-import com.stef.rh.models.RegionsDto;
+import com.stef.rh.dto.RegionsDto;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

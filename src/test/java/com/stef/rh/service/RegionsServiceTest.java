@@ -1,9 +1,9 @@
 package com.stef.rh.service;
 
-import com.stef.rh.entity.Regions;
+import com.stef.rh.dto.RegionsDto;
 import com.stef.rh.exception.RegionsNotFoundException;
 import com.stef.rh.mapper.RegionsMapper;
-import com.stef.rh.models.RegionsDto;
+import com.stef.rh.model.Regions;
 import com.stef.rh.repository.RegionsRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -36,12 +36,12 @@ class RegionsServiceTest {
    @Test
    void testGetAllRegions() {
        when(this.regionsRepository.findAll()).thenReturn(new ArrayList< Regions >());
-       ArrayList< RegionsDto > regionsDtoList = new ArrayList< RegionsDto >();
-       when(this.regionsMapper.toDtoMap((List< Regions >) any())).thenReturn(regionsDtoList);
+       ArrayList< RegionsDto > regionsDtoList = new ArrayList<>();
+       when(this.regionsMapper.toDtoMap(any())).thenReturn(regionsDtoList);
        List< RegionsDto > actualAllRegions = this.regionsService.getAllRegions();
        assertThat(actualAllRegions).isSameAs(regionsDtoList);
        assertThat(actualAllRegions.isEmpty()).isTrue();
-       verify(this.regionsMapper).toDtoMap((List< Regions >) any());
+       verify(this.regionsMapper).toDtoMap(any());
        verify(this.regionsRepository).findAll();
    }
 
@@ -50,7 +50,7 @@ class RegionsServiceTest {
        Regions regions = new Regions();
        regions.setRegionId(123L);
        regions.setRegionName("us-east-2");
-       Optional< Regions > ofResult = Optional.< Regions >of(regions);
+       Optional< Regions > ofResult = Optional.of(regions);
        when(this.regionsRepository.findById(anyLong())).thenReturn(ofResult);
        RegionsDto regionsDto = new RegionsDto();
        when(this.regionsMapper.toDto(any(Regions.class))).thenReturn(regionsDto);
@@ -61,7 +61,7 @@ class RegionsServiceTest {
 
    @Test
    void testGetRegionsById2() {
-       when(this.regionsRepository.findById(anyLong())).thenReturn(Optional.< Regions >empty());
+       when(this.regionsRepository.findById(anyLong())).thenReturn(Optional.empty());
        when(this.regionsMapper.toDto(any(Regions.class))).thenReturn(new RegionsDto());
        assertThatExceptionOfType(RegionsNotFoundException.class).isThrownBy(() -> this.regionsService.getRegionsById(123L));
        verify(this.regionsRepository).findById(anyLong());
@@ -91,7 +91,7 @@ class RegionsServiceTest {
        Regions regions = new Regions();
        regions.setRegionId(123L);
        regions.setRegionName("us-east-2");
-       Optional< Regions > ofResult = Optional.< Regions >of(regions);
+       Optional< Regions > ofResult = Optional.of(regions);
        doNothing().when(this.regionsRepository).delete(any(Regions.class));
        when(this.regionsRepository.findById(anyLong())).thenReturn(ofResult);
        this.regionsService.delete(123L);
@@ -102,7 +102,7 @@ class RegionsServiceTest {
     @Test
     void testDelete2() {
         doNothing().when(this.regionsRepository).delete(any(Regions.class));
-        when(this.regionsRepository.findById(anyLong())).thenReturn(Optional.< Regions >empty());
+        when(this.regionsRepository.findById(anyLong())).thenReturn(Optional.empty());
         assertThatExceptionOfType(RegionsNotFoundException.class).isThrownBy(() -> this.regionsService.delete(123L));
         verify(this.regionsRepository).findById(anyLong());
     }
@@ -112,7 +112,7 @@ class RegionsServiceTest {
        Regions regions = new Regions();
        regions.setRegionId(123L);
        regions.setRegionName("us-east-2");
-       Optional< Regions > ofResult = Optional.< Regions >of(regions);
+       Optional< Regions > ofResult = Optional.of(regions);
 
        Regions regions1 = new Regions();
        regions1.setRegionId(123L);
@@ -135,7 +135,7 @@ class RegionsServiceTest {
        regions.setRegionId(123L);
        regions.setRegionName("us-east-2");
        when(this.regionsRepository.save(any(Regions.class))).thenReturn(regions);
-       when(this.regionsRepository.findById(anyLong())).thenReturn(Optional.< Regions >empty());
+       when(this.regionsRepository.findById(anyLong())).thenReturn(Optional.empty());
        final RegionsDto body = new RegionsDto();
        when(this.regionsMapper.toDto(any(Regions.class))).thenReturn(body);
        Assertions.assertThatThrownBy(() -> this.regionsService.update(body, 123L))

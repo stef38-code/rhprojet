@@ -17,5 +17,29 @@ class RegionsNotFoundExceptionTest {
             assertThat(actualRegionsNotFoundException.getLocalizedMessage()).isEqualToIgnoringCase("la région avec l'ID 123 est introuvable");
         });
     }
+
+    @Test
+    public void testConstructor2() {
+        RegionsNotFoundException actualRegionsNotFoundException = new RegionsNotFoundException(ErrorCode.TECHNIQUE, 123L);
+        assertThat(actualRegionsNotFoundException.toString()).isEqualTo("com.stef.rh.exception.RegionsNotFoundException: la région avec l'ID 123 est introuvable");
+        assertThat(actualRegionsNotFoundException.getId().longValue()).isEqualTo(123L);
+        assertThat(actualRegionsNotFoundException.getCode()).isEqualTo(ErrorCode.TECHNIQUE);
+    }
+
+    @Test
+    public void testConstructor3() {
+        RegionsNotFoundException actualRegionsNotFoundException = new RegionsNotFoundException(ErrorCode.APPLICATIF, 123L);
+        assertThat(actualRegionsNotFoundException.toString()).isEqualTo("com.stef.rh.exception.RegionsNotFoundException: la région avec l'ID 123 est introuvable");
+        assertThat(actualRegionsNotFoundException.getId().longValue()).isEqualTo(123L);
+        assertThat(actualRegionsNotFoundException.getCode()).isEqualTo(ErrorCode.APPLICATIF);
+    }
+
+    @Test
+    public void testConstructor4() {
+        RegionsNotFoundException actualRegionsNotFoundException = new RegionsNotFoundException(ErrorCode.AUTRE, 123L);
+        assertThat(actualRegionsNotFoundException.toString()).isEqualTo("com.stef.rh.exception.RegionsNotFoundException: la région avec l'ID 123 est introuvable");
+        assertThat(actualRegionsNotFoundException.getId().longValue()).isEqualTo(123L);
+        assertThat(actualRegionsNotFoundException.getCode()).isEqualTo(ErrorCode.AUTRE);
+    }
 }
 

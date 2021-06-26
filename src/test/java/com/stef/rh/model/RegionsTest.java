@@ -1,4 +1,4 @@
-package com.stef.rh.entity;
+package com.stef.rh.model;
 
 import org.junit.jupiter.api.Test;
 

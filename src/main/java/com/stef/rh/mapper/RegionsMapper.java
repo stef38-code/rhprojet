@@ -1,7 +1,7 @@
 package com.stef.rh.mapper;
 
-import com.stef.rh.entity.Regions;
-import com.stef.rh.models.RegionsDto;
+import com.stef.rh.dto.RegionsDto;
+import com.stef.rh.model.Regions;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

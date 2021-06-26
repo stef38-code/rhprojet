@@ -1,6 +1,6 @@
 package com.stef.rh.repository;
 
-import com.stef.rh.entity.Regions;
+import com.stef.rh.model.Regions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

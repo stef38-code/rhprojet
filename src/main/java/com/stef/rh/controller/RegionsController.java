@@ -1,7 +1,7 @@
 package com.stef.rh.controller;
 
 import com.stef.rh.api.RegionsApi;
-import com.stef.rh.models.RegionsDto;
+import com.stef.rh.dto.RegionsDto;
 import com.stef.rh.service.IRegionsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 public class RegionsController implements RegionsApi {
     private final IRegionsService regionsService;
+
 
     @Override
     public ResponseEntity< RegionsDto > addRegions(RegionsDto body) {
