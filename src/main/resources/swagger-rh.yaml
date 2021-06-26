@@ -1,0 +1,175 @@
+openapi: 3.0.1
+
+info:
+  version: 0.0.1
+  title: project rh
+  description: the project rh
+  contact:
+    email: apiteam@swagger.io
+
+tags:
+  - name: "regions"
+    description: "Toutes actions sur les régions"
+paths:
+  /regions:
+
+    post:
+      tags:
+        - regions
+      summary: "Ajouter une nouvelle region en DB"
+      operationId: "addRegions"
+      requestBody:
+        description: "Nouvelle adresse"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegionsDto'
+      responses:
+        "200":
+          description: "Opération réussie"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionsDto'
+        "405":
+          description: "Invalid input"
+    get:
+      tags:
+        - regions
+      summary: "Recherche toutes les regions"
+      description: ""
+      operationId: getAllRegions
+      responses:
+        "200":
+          description: "Opération réussie"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RegionsDto'
+        "404":
+          $ref: '#/components/responses/NotFound'
+
+  /regions/{id}:
+    get:
+      tags:
+        - regions
+      summary: "Recherche un region par son id"
+      description: ""
+      operationId: getRegionsById
+
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Identifiant de la regions"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+            minimum: 1
+      responses:
+        "200":
+          description: "Opération réussie"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionsDto'
+        "404":
+          $ref: '#/components/responses/NotFound'
+
+    delete:
+      tags:
+        - regions
+      summary: "Recherche un region par son id"
+      description: ""
+      operationId: deleteRegionsById
+
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Identifiant de la regions"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+            minimum: 1
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Pet not found"
+    put:
+      tags:
+        - regions
+      summary: modifier une region en DB"
+      operationId: "updateRegions"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Identifiant de la regions"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+            minimum: 1
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegionsDto'
+      responses:
+        "200":
+          description: "Opération réussie"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionsDto'
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Region not found"
+        "405":
+          description: "Validation exception"
+
+components:
+  #-------------------------------
+  # Reusable schemas (data models)
+  #-------------------------------
+  schemas:
+    RegionsDto:
+      description: Une region model
+      type: object
+      properties:
+        regionId:
+          description: identifiant
+          type: integer
+          format: int64
+        regionName:
+          description: nom de la region
+          type: string
+
+    # Schema for error response body
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
+  #-------------------------------
+  # Reusable responses
+  #-------------------------------
+  responses:
+    NotFound:
+      description: "La ressource spécifiée est introuvable"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
